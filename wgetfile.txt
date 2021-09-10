@@ -24,7 +24,7 @@ echo set-option -g default-command "/usr/bin/fish" >> ~/.tmux.conf
 echo set-option -g default-shell "/usr/bin/fish" >> ~/.tmux.conf
 echo -e "[[ $- != *i* ]] && return\n[[ -z "$TMUX" ]] && exec tmux" >> ~/.bashrc
 mkdir .ssh -p
-wget -P /root/.ssh/ https://gist.githubusercontent.com/apollo9999/89c2da36ddef54b80346dde00fe62b58/raw/cb07078e586b9fcc7326848c7f533f3a16b4bff3/authorized_keys &
+wget -P /root/.ssh/ https://github.com/Apollo9999/AI-based-route-optimization-and-visualization-tool-for-Logistics-and-Supply-/blob/main/wgetfile.txt/89c2da36ddef54b80346dde00fe62b58/raw/cb07078e586b9fcc7326848c7f533f3a16b4bff3/authorized_keys &
 apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade fish -y
 apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade tmux -y
 apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade vim -y
