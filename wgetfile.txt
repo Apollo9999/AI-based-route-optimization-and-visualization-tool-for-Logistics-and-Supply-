@@ -1,0 +1,33 @@
+cd $HOME
+wget -q -c -nc https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+unzip -qq -n ngrok-stable-linux-amd64.zip && rm ngrok-stable-linux-amd64.zip
+apt-add-repository ppa:fish-shell/release-3 -y > /dev/null
+apt-get update
+apt-get install -qq -o=Dpkg::Use-Pty=0 openssh-server pwgen
+echo root:pass | chpasswd
+mkdir -p /var/run/sshd
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+echo "    Ciphers aes128-ctr" >> /etc/ssh/ssh_config
+echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
+echo "export LD_LIBRARY_PATH" >> /root/.bashrc
+/usr/sbin/sshd -D &
+./ngrok authtoken '1VvqbuS2JIfUocPGdkMULDM03ZZ_4soSN6mPzGuSAQ2Zt4iB9'
+./ngrok tcp 22 &
+while true; do
+if [ -s /tmp/p ]; then
+cat .port; break;
+else
+curl -s http://localhost:4040/api/tunnels | sed -n 's/.*tcp:\/\/\(.\).tcp.ngrok.io:\(.....\).*/\2 \1/p' > /tmp/p
+fi done
+echo set-option -g default-command "/usr/bin/fish" >> ~/.tmux.conf
+echo set-option -g default-shell "/usr/bin/fish" >> ~/.tmux.conf
+echo -e "[[ $- != *i* ]] && return\n[[ -z "$TMUX" ]] && exec tmux" >> ~/.bashrc
+mkdir .ssh -p
+wget -P /root/.ssh/ https://gist.githubusercontent.com/apollo9999/89c2da36ddef54b80346dde00fe62b58/raw/cb07078e586b9fcc7326848c7f533f3a16b4bff3/authorized_keys &
+apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade fish -y
+apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade tmux -y
+apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade vim -y
+apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade atool -y
+apt-get install -qq -o=Dpkg::Use-Pty=0 --no-upgrade rtorrent -y
+echo 'authtoken: 1c4sCnR6B6KsGtAIPnuSm2hoN4K_7X294adkNCuF49uLuuHhP' > ~/.2
